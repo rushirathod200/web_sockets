@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Enter Username</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      body {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        position: relative;
+      }
+
+      .container {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+        backdrop-filter: blur(10px);
+        text-align: center;
+        max-width: 400px;
+        width: 100%;
+      }
+
+      h1 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+      }
+
+      input[type="text"] {
+        width: 100%;
+        padding: 15px;
+        border: none;
+        border-radius: 10px;
+        outline: none;
+        margin-top: 10px;
+        font-size: 1rem;
+      }
+
+      button {
+        margin-top: 20px;
+        padding: 12px 25px;
+        font-size: 1rem;
+        font-weight: 600;
+        border: none;
+        border-radius: 10px;
+        background: linear-gradient(135deg, #00c9ff, #92fe9d);
+        color: #333;
+        cursor: pointer;
+        transition: transform 0.2s, box-shadow 0.3s;
+      }
+
+      button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+      }
+
+     
+    </style>
+  </head>
+  <body>
+
+
+    <div class="container">
+      <h1>Welcome 👋</h1>
+      <p>Please enter your username to continue</p>
+      <form id="usernameForm" action="/chat" method="post">
+        <input
+          name="username"
+          type="text"
+          id="username"
+          placeholder="Enter your username..."
+          required
+        />
+        <input type="hidden" name="socket_id" id="socket_id" />
+
+        <button type="submit">Continue</button>
+      </form>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      const socket = io();
+
+      socket.on("connect", () => {
+        console.log("Socket connected:", socket.id);
+
+        const socketInput = document.getElementById("socket_id");
+        if (socketInput) {
+          socketInput.value = socket.id;
+        }
+      });
+    </script>
+  </body>
+</html>
